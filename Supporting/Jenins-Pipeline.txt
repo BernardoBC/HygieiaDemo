@@ -1,0 +1,22 @@
+https://github.com/BernardoBC/Hygieia/
+
+node {
+   def mvnHome
+   stage('Preparation') { // for display purposes
+      git 'https://github.com/BernardoBC/Hygieia.git'
+      mvnHome = tool 'Maven_3_5_4'
+   }
+   stage('Clean') {
+      sh 'sudo mvn clean'
+   }
+   stage('Build') {
+      sh 'mvn install package'
+   }
+   stage('Build Docker Images') {
+      sh 'sudo mvn docker:build'
+   }
+   stage('Push Images to Registry') {
+      sh 'sudo docker-compose up --no-start'
+      sh 'sudo docker-compose push'
+   }
+}

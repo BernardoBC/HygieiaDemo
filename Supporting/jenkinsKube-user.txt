@@ -1,7 +1,0 @@
-jenkinsKube
-
-Access Key
-AKIAJ66AWTRHPA52B6VQ
-
-Secret Access Key
-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
