@@ -1,0 +1,10 @@
+kubectl create -f storage-class.yaml
+kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+
+kubectl get storageclass
+
+Result 
+
+NAME            PROVISIONER             AGE
+gp2 (default)   kubernetes.io/aws-ebs   18s

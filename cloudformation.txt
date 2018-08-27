@@ -1,0 +1,42 @@
+http://docs.heptio.com/content/tutorials/aws-cloudformation-k8s.html
+
+STACK=k8sHygieai
+TEMPLATEPATH=https://s3.amazonaws.com/quickstart-reference/heptio/latest/templates/kubernetes-cluster-with-new-vpc.template
+AZ=us-east-2a
+INGRESS=0.0.0.0/0
+KEYNAME=testing-keypair
+
+aws cloudformation create-stack --stack-name $STACK \
+--template-body $TEMPLATEPATH \
+--capabilities CAPABILITY_NAMED_IAM \
+--parameters ParameterKey=AvailabilityZone,ParameterValue=$AZ \
+ParameterKey=AdminIngressLocation,ParameterValue=$INGRESS \
+ParameterKey=KeyName,ParameterValue=$KEYNAME
+
+
+{
+    "StackId": "arn:aws:cloudformation:us-east-2:095391874903:stack/k8sHygieai/42f18c90-a7d1-11e8-9f78-06acaac395bc"
+}
+
+get Kubecconfig
+aws cloudformation describe-stacks --query 'Stacks[*].Outputs[?OutputKey == `GetKubeConfigCommand`].OutputValue' --output text --stack-name $STACK
+
+
+SSH_KEY="key.pem"; scp -i $SSH_KEY -o ProxyCommand="ssh -i \"${SSH_KEY}\" ubuntu@111.111.111.111 nc %h %p" ubuntu@10.0.0.0:~/kubeconfig ./kubeconfig
+
+
+
+
+aws cloudformation describe-stacks --query 'Stacks[*].Outputs[?OutputKey == `SSHProxyCommand`].OutputValue' --output text --stack-name $STACK
+
+SSH_KEY="/home/ubuntu/keys/testing-keypair.pem"; ssh -i $SSH_KEY -A -L8080:localhost:8080 -o ProxyCommand="ssh -i \"${SSH_KEY}\" ubuntu@18.219.56.137 nc %h %p" ubuntu@10.0.9.198
+/home/ubuntu/keys/testing-keypair.pem
+
+SSH_KEY="path/to/testing-keypair.pem"; ssh -i $SSH_KEY -A -L8080:localhost:8080 -o ProxyCommand="ssh -i \"${SSH_KEY}\" ubuntu@18.219.56.137 nc %h %p" ubuntu@10.0.9.198
+
+
+
+SSH_KEY="/home/ubuntu/keys/testing-keypair.pem"; scp -i $SSH_KEY -o ProxyCommand="ssh -i \"${SSH_KEY}\" ubuntu@18.219.56.137 nc %h %p" ubuntu@10.0.9.198:~/kubeconfig ./kubeconfig
+
+export KUBECONFIG=$(pwd)/kubeconfig
+cp $(pwd)/kubeconfig ~/.kube/config

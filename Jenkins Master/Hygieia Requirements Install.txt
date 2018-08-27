@@ -1,0 +1,11 @@
+sudo apt-get install nodejs-legacy
+sudo apt-get install ruby
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+sudo apt-get install npm
+sudo npm install -g bower
+sudo npm install -g gulp
+sudo apt-get install gdebi
+wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/maven3_3.2.1-0~ppa1_all.deb
+sudo gdebi maven3_3.2.1-0~ppa1_all.deb
+sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/mvn
+sudo apt-get install git

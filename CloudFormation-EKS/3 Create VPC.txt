@@ -1,0 +1,54 @@
+CloudFormation Template
+https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/amazon-eks-vpc-sample.yaml
+
+SecurityGroups 	sg-08f227c535b777f6d
+VpcId 	vpc-0c83479457f5c6d31
+SubnetIds 	subnet-088011b4480b30c9b,subnet-0840b5ac1edfa010d,subnet-0ee3e069bc43262a9
+
+Select the new cluster in the Amazon EKS console.
+From the cluster details page, note the API server endpoint and certificate authority data
+Create EKS through CLI
+aws eks create-cluster --name EKS-Hygieia --role-arn arn:aws:iam::095391874903:role/EKS_Hygieia --resources-vpc-config subnetIds=subnet-0ee3e069bc43262a9,subnet-088011b4480b30c9b,subnet-0840b5ac1edfa010d,securityGroupIds=sg-08f227c535b777f6d
+
+example
+aws eks create-cluster --name prod --role-arn arn:aws:iam::012345678910:role/eks-service-role-AWSServiceRoleForAmazonEKS-J7ONKE3BQ4PI 
+--resources-vpc-config subnetIds=subnet-6782e71e,subnet-e7e761ac,securityGroupIds=sg-6979fe18
+
+
+REsult
+
+{
+    "cluster": {
+        "status": "CREATING",
+        "name": "EKS-Hygieia",
+        "certificateAuthority": {},
+        "roleArn": "arn:aws:iam::095391874903:role/EKS_Hygieia",
+        "resourcesVpcConfig": {
+            "subnetIds": [
+                "subnet-0ee3e069bc43262a9",
+                "subnet-088011b4480b30c9b",
+                "subnet-0840b5ac1edfa010d"
+            ],
+            "vpcId": "vpc-0c83479457f5c6d31",
+            "securityGroupIds": [
+                "sg-08f227c535b777f6d"
+            ]
+        },
+        "version": "1.10",
+        "arn": "arn:aws:eks:us-east-1:095391874903:cluster/EKS-Hygieia",
+        "createdAt": 1535320521.266
+    }
+}
+
+
+
+mkdir ~/.kube
+touch ~/.kube/config-eks
+export KUBECONFIG=~/.kube/config-eks
+
+
+API Server Endpoint
+
+
+Certificate authority
+

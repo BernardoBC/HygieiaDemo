@@ -1,0 +1,6 @@
+Install Maven
+apt-cache search maven
+
+sudo apt-get install maven
+
+mvn -version

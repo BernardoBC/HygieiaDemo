@@ -1,0 +1,17 @@
+https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/amazon-eks-nodegroup.yaml
+
+Stack Name - K8sHygieia-Nodes
+ClusterName - EKS-Hygieia
+ClusterControlPlaneSecurityGroup - sg-08f227c535b777f6d
+NodeGroupName - HygieiaNodes
+NodeAutoScalingGroupMinSize - 1
+NodeAutoScalingGroupMaxSize - 30
+NodeInstanceType - t2.small
+NodeImageID - ami-dea4d5a1
+KeyName - WorkerKeyPair
+
+Resulta
+arn:aws:iam::095391874903:role/K8sHygieia-Nodes-NodeInstanceRole-AMZU2PZ7YZ8U
+
+
+kubectl apply -f auth.yaml

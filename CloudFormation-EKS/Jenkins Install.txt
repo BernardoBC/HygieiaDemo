@@ -1,0 +1,22 @@
+Install Java
+sudo add-apt-repository ppa:webupd8team/java
+
+Download Java 8
+sudo apt update
+sudo apt install oracle-java8-installer
+sudo apt install oracle-java8-set-default
+
+Install Jenkins
+cd /tmp && wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+echo 'deb https://pkg.jenkins.io/debian-stable binary/' | sudo tee -a /etc/apt/sources.list.d/jenkins.list
+sudo apt update
+sudo apt install jenkins
+
+Stop Start and Enable to run at boot
+sudo systemctl stop jenkins.service
+sudo systemctl start jenkins.service
+sudo systemctl enable jenkins.service
+
+Run Server through IP address and port 8080
+Locate initial admin pass
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword

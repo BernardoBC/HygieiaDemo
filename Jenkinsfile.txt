@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Compile'){
+            steps{
+                withMaven(maven : 'Maven_3_5_4'){
+                    sh 'mvn clean install package'
+                }
+            }
+        }
+    }
+}
